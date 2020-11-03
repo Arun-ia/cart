@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Carts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Cost/Quantity</th>
+      <th>Total Cost</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @carts.each do |cart| %>
+      <tr>
+        <td><%= @products.find(cart.Product_id).name %></td>
+        <td><%= cart.quantity %></td>
+        <% costper1 = @products.find(cart.Product_id).cost %>
+        <% cost = costper1 * cart.quantity %>
+        <td><%= costper1 %></td>
+        <td><%= cost %></td>
+        <% @net_amount = @net_amount + cost %>
+        <td><%= link_to 'Edit', edit_cart_path(cart) %></td>
+        <td><%= link_to 'Remove Item', cart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<h3>Total Payable: 
+<%= @net_amount %>
+</h3>
+
+
+<%= link_to 'View Products', products_path %>
