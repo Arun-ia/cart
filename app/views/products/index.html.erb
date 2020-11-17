@@ -1,5 +1,21 @@
+<html >
+<head>
+    <title>AngularExample</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+
+    <%= csrf_meta_tags %>
+
+</head>
+
+<body>
+
 <p id="notice"><%= notice %></p>
 
+
+
+  
+  
+  
 <h1>Products</h1>
 
 <table>
@@ -20,10 +36,10 @@
         <td><%= link_to 'Edit', edit_product_path(product) %></td>
         <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% if product.availablity>0 %>
-        <td><%= form_tag(carts_path, :method => "post") do %>
-         <%= hidden_field_tag(:quantity, 1) %>
-        <%= hidden_field_tag(:Product_id, product.id) %>
-        <%= submit_tag("Add to Cart") %></td>
+        <td><%= form_with(url: carts_path, method: "post" )  do |form| %>
+         <%= form.hidden_field :quantity, value: 1 %>
+        <%= form.hidden_field :Product_id, value: product.id %>
+        <%= form.submit("Add to Cart") %></td>
    	<% end %>
    	<% else %>
    	<td><%= "Unavailable" %></td>
@@ -35,6 +51,14 @@
 </table>
 
 <br>
+<!-- div id="cart">
+<%= render template: 'products/new' %>
+<%= @message_eg %>
+</div-->
 
-<%= link_to 'New Product', new_product_path %>
+
+
 <%= link_to 'View Cart', carts_path %>
+
+</body>
+</html>

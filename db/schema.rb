@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_29_130440) do
+ActiveRecord::Schema.define(version: 2020_11_10_063752) do
 
-  create_table "carts", force: :cascade do |t|
+  create_table "carts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "Product_id", null: false
+    t.bigint "Product_id", null: false
     t.index ["Product_id"], name: "index_carts_on_Product_id"
   end
 
-  create_table "products", force: :cascade do |t|
+  create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.integer "cost"
     t.datetime "created_at", precision: 6, null: false
@@ -28,5 +28,11 @@ ActiveRecord::Schema.define(version: 2020_10_29_130440) do
     t.integer "availablity"
   end
 
-  add_foreign_key "carts", "Products"
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.string "name"
+    t.string "password"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
 end

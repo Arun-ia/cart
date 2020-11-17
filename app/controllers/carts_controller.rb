@@ -1,12 +1,14 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: [ :edit, :update, :destroy]
+
+  #layout 'cart'
+  
   # GET /carts
   # GET /carts.json
   def index
    @net_amount = 0
     @products = Product.all
     @carts = Cart.all
-    
   end
 
 
@@ -18,14 +20,13 @@ class CartsController < ApplicationController
   # POST /carts.json
   def create
     @cart = Cart.new(create_cart_params)
-    puts @cart.quantity
     respond_to do |format|
       if @cart.save
         format.html { redirect_to carts_url, notice: 'Item added to the cart.' }
         format.json { render :show, status: :created, location: @cart }
       else
         format.html { redirect_to carts_url}
-        format.json { render json: @cart.errors, status: :unprocessable_entity }
+        format.json { render json: @cart.errors, notice: @cart.errors, status: :unprocessable_entity }
       end
     end
   end

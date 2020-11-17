@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title>Cart</title>
+		<script src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>  
+
+
+
+		<%= javascript_pack_tag 'app', 'data-turbolinks-track': 'reload' %>
+
+	</head>
+	<body>
+
+		<div ng-app = "cartservice" ng-controller = "productController">
+			<table>
+			<tr>
+			<th>Product</th>
+			<th>Quantity</th>
+			<th>Cost/Quantity</th>
+			<th>Total Cost</th>
+			</tr>
+			<tr ng-repeat = "cartitem in cart" >
+
+			<td>{{ cartitem.pname }}</td>
+			<td ng-show = "isAvail(cartitem)"><a ng-model="decq" ng-click = "decq(cartitem)">-</a>{{ cartitem.quantity }}<a ng-model="incq" ng-click = "incq(cartitem)">+</a></td>
+			<td ng-show = "!isAvail(cartitem)">Product Unavailable</td>
+			<td>{{ cartitem.cost }}</td>
+			<td>{{ cartitem.cost * cartitem.quantity}}</td>
+			<td><a ng-model="del_item" ng-click = "delfromcart(cartitem)">Remove</a></td>
+			</tr>
+			
+			</table>
+
+
+		<h3>Total Payable : {{ tot_amount() }}<h3>
+		</div>
+		
+		<%= link_to 'View Products', products_path  %> 
+		<%= yield %>
+	</body>
+</html>

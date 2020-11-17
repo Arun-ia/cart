@@ -11,6 +11,8 @@ def check_availablity
 	avail = Product.find(self.Product_id).availablity
 	if avail == 0
 		self.destroy
+	elsif self.quantity > avail
+		self.quantity = avail
 	end
 end
 end

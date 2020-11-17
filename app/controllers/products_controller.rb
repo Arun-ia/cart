@@ -1,10 +1,13 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-
+  layout "index"
+  
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Product.all  
+    @product = Product.new
+	  @carts = Cart.new
   end
 
   # GET /products/1
@@ -28,8 +31,10 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: @product }
+        format.html { redirect_to products_url, notice: 'Product was successfully created.' }
+        format.json { render json: @product.to_json, status: :created, location: @product }
+        puts @product.as_json
+        
       else
         format.html { render :new }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -43,7 +48,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: @product }
+        format.json { render :@product.as_json, status: :ok, location: @product }
       else
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }
